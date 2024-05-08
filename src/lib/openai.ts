@@ -25,13 +25,11 @@ export async function generateImagePrompt(noteName: string) {
               },
             ],
           });
-        console.log('response', response);
         const data = await response.json();
         const image_description = data.choices[0].message.content;
-        console.log('generateImagePrompt', image_description);
         return image_description as string;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw error;
     }
 }

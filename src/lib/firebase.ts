@@ -21,10 +21,8 @@ export const storage = getStorage(app);
 export async function uploadFileToFirebase(image_url: string, name: string) {
     try {
         const response = await fetch(image_url);
-        console.log('image response', response);
 
         const buffer = await response.arrayBuffer();
-        console.log('buffer', buffer);
 
         const file_name = name.replace(' ', '') + Date.now + '.jpeg';
         const storageRef = ref(storage, file_name);
@@ -35,6 +33,6 @@ export async function uploadFileToFirebase(image_url: string, name: string) {
         const firebase_url = await getDownloadURL(storageRef);
         return firebase_url
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }

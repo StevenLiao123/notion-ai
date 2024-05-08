@@ -36,7 +36,6 @@ const TipTapEditor = ({ note }: Props) => {
       return {
         'Shift-a': () => {
           const prompt = this.editor.getText().split(' ').slice(-30).join(' ');
-          console.log('prompt', prompt);
           complete(prompt);
           return true;
         },
@@ -57,13 +56,10 @@ const TipTapEditor = ({ note }: Props) => {
     if (!completion || !editor) return;
 
     const diff = completion.slice(lastCompletion.current.length);
-    console.log('diff', diff);
 
     lastCompletion.current = completion;
 
     editor.commands.insertContent(diff);
-
-    console.log('lastCompletion', lastCompletion.current);
   }, [completion, editor]);
 
   const debouncedEditorState = useDebounce(editorState, 500);
@@ -75,10 +71,10 @@ const TipTapEditor = ({ note }: Props) => {
         console.log('success updated!', data);
       },
       onError: (error) => {
-        console.log('fail updated!', error);
+        console.error('fail updated!', error);
       },
     });
-    console.log(debouncedEditorState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedEditorState]);
   return (
     <>
